@@ -131,4 +131,5 @@ dmypy.json
 # user adding
 생각노트/
 my_setting.py
+telegram_info.py
 
