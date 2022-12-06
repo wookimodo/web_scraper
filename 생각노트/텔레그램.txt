@@ -1,0 +1,10 @@
+텔레그램 HTTP API
+5904227464:AAGmNea-orR3Ab3UqqdJRKaxgz71uX4HeqM
+https://api.telegram.org/bot[my_channel_토큰]/getUpdates
+
+브라우저 URL에 붙여넣기
+https://api.telegram.org/bot5904227464:AAGmNea-orR3Ab3UqqdJRKaxgz71uX4HeqM/getUpdates
+
+CHAT ID : 5933023298
+
+git repository url : git@github.com:wookimodo/web_scraper.git
