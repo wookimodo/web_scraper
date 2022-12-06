@@ -1,3 +1,5 @@
+# 웹 스크래핑 코드
+
 import requests
 from bs4 import BeautifulSoup # BeautifulSoup 객체를 만들어서 select 사용할 것임.
 # 데이터를 가져옴

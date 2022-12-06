@@ -1,6 +1,10 @@
+# 웹 스크래핑 코드
+# 텔레그램 push
+
 import requests
 from bs4 import BeautifulSoup # BeautifulSoup 객체를 만들어서 select 사용할 것임.
-import telegram, telegram_info
+import telegram
+from . import telegram_info
 
 
 TLGM_BOT_API = telegram_info.TLGM_BOT_API
