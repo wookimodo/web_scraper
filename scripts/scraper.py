@@ -7,7 +7,10 @@ from bs4 import BeautifulSoup # BeautifulSoup 객체를 만들어서 select 사�
 import telegram
 import env_info # 베이스 기준으로 바로 import 가능
 from hotdeal.models import Deal
+from datetime import datetime, timedelta
 
+data_period = 3
+up_lower_limit = 3
 
 TLGM_BOT_API = env_info.TLGM_BOT_API
 tlgm_bot = telegram.Bot(TLGM_BOT_API)
@@ -27,6 +30,13 @@ items = soup.select("tr.list1, tr.list0")
 
 # 버전에 따라 다르긴 하지만, run()함수로 싸줘야 실행이 됨.
 def run():
+  # delete deals created > 3 days (__lt, __lte, __gt, __gte
+  # row, _ = Deal.objects.filter(cdate__lte = datetime.now() - timedelta(days=3)).delete()
+  # 1분전까지의 데이터를 지워버리고, 다시 스크래핑
+  row, _ = Deal.objects.filter(cdate__lte=datetime.now() - timedelta(minutes=data_period)).delete()
+  # row, _ = Deal.objects.filter(cdate__lte=datetime.now() - timedelta(seconds=3)).delete()
+  print( row, "deals deleted")
+  
   for item in items:
     try:
       img_url = item.select("img.thumb_border")[0].get("src").strip()
@@ -40,11 +50,12 @@ def run():
       up_count = int(up_count)
       
       
-      if up_count >= 3:
+      if up_count >= up_lower_limit:
         # if(Deal.objects.filter(link__iexact=link).count()==0) -> DB에 저장되어 있는 link 수가 0이라면, 즉 없다면. 중복제거하기 위해서.
         # 텔레그램 봇으로 push
         # link__iexact : 대소문자 구분없이
         # link__iexact 여기서 link는 컬럼명.
+                  
         
         if(Deal.objects.filter(link__iexact=link).count()==0):
           chat_id = env_info.chat_id
